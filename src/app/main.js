@@ -20,6 +20,9 @@ const styles = {
 import {GMap} from './components/Map/Map';
 import {CarouselGallery} from './components/CarouselGallery/CarouselGallery';
 
+import {GMap} from './components/Map/Map';
+import {CarouselGallery} from './components/CarouselGallery/CarouselGallery';
+
 export class Main extends Component {
   render() {
     return (
