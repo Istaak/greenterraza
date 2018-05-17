@@ -7,7 +7,6 @@ const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  devtool: "source-map",
   module: {
     loaders: [
       {
@@ -29,24 +28,21 @@ module.exports = {
         test: /\.scss$/,
         loaders: ["style", "css?sourceMap", "sass?sourceMap"]
       },
-      { test: /\.css$/,
-         loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff)$/,
-        loader: 'url-loader?limit=10000',
+        loader: 'url-loader?limit=10000'
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader',
+        loader: 'url-loader'
       },
       {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        loader: 'file-loader',
-      },
-      {
-        test: /\.(wav|mp3)$/,
-        loader: 'file-loader',
+        loader: 'file-loader'
       },
       {
         test: /\.js$/,
@@ -68,7 +64,9 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"develop"'
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {unused: true, dead_code: true} // eslint-disable-line camelcase
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -76,17 +74,13 @@ module.exports = {
     }),
   ],
   postcss: () => [autoprefixer],
-  debug: true,
-  devtool: 'cheap-module-eval-source-map',
   output: {
-    path: path.join(process.cwd(), conf.paths.tmp),
-    filename: 'index.js'
+    path: path.join(process.cwd(), conf.paths.dist),
+    filename: 'index-[hash].js'
   },
   entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client',
-    'bootstrap-loader/extractStyles',
     'font-awesome-loader',
+    'bootstrap-loader/extractStyles',
     `./${conf.path.src('index')}`
   ]
 };

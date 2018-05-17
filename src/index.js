@@ -7,7 +7,7 @@ import Events from './app/components/Events';
 import {Footer} from './app/components/layout/Footer';
 import {Header} from './app/components/layout/Header';
 
-// Third-p  arty dependencies
+// Third-party dependencies
 import {Router, Route, IndexRoute, useRouterHistory} from 'react-router';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 import {createHashHistory} from 'history';

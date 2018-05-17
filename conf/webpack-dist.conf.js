@@ -3,20 +3,11 @@ const conf = require('./gulp.conf');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const SplitByPathPlugin = require('webpack-split-by-path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint'
-      }
-    ],
-
     loaders: [
       {
         test: /.json$/,
@@ -26,7 +17,31 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        loaders: ExtractTextPlugin.extract('style', 'css?minimize!sass', 'postcss')
+        loaders: [
+          'style',
+          'css?sourceMap',
+          'sass?sourceMap',
+          'postcss'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+      },
+      { test: /\.css$/,
+         loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff)$/,
+        loader: 'url-loader?limit=10000',
+      },
+      {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        loader: 'file-loader',
       },
       {
         test: /\.js$/,
@@ -40,6 +55,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin("index.css"),
     new HtmlWebpackPlugin({
       template: conf.path.src('index.html'),
       inject: true
@@ -50,18 +66,20 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: {unused: true, dead_code: true} // eslint-disable-line camelcase
     }),
-    new SplitByPathPlugin([{
-      name: 'vendor',
-      path: path.join(__dirname, '../node_modules')
-    }]),
-    new ExtractTextPlugin('/index-[contenthash].css')
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+    }),
   ],
   postcss: () => [autoprefixer],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
-    filename: '[name]-[hash].js'
+    filename: 'index-[hash].js'
   },
-  entry: {
-    app: `./${conf.path.src('index')}`
-  }
+  entry: [
+    'font-awesome-loader',
+    'bootstrap-loader/extractStyles',
+    `./${conf.path.src('index')}`
+  ]
 };
