@@ -1,24 +1,6 @@
 import React, {Component} from 'react';
-import {Header} from './header';
-import {Title} from './title';
-import {Techs} from './techs/techs';
-import {Footer} from './footer';
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100%'
-  },
-  main: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column'
-  }
-};
-
-import {GMap} from './components/Map/Map';
-import {CarouselGallery} from './components/CarouselGallery/CarouselGallery';
+import {Hero} from './components/Hero';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 import {GMap} from './components/Map/Map';
 import {CarouselGallery} from './components/CarouselGallery/CarouselGallery';

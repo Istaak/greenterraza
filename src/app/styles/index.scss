@@ -1,0 +1,51 @@
+html, body, #root {
+  margin: 0;
+  height: 100%;
+}
+
+body, h1, h2, h3 {
+  font-weight: 300
+}
+
+a {
+  color: #03a9f4;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.main-content {
+  padding-bottom: 30px;
+}
+
+.pointer-disabled {
+  pointer-events: none;
+}
+
+.accessibility {
+  h4 { font-weight: bold; }
+  p { text-align: justify; }
+}
+
+.tooltip-inner {
+  background-color: #ff2982;
+  color: #fff;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color:#ff2982;
+}
+
+@import 'bootstrap/grid';
+@import 'bootstrap/override';
+
+
+@import 'components/header';
+@import 'components/footer';
+
+@import 'components/hero';
+@import 'components/gallery';
+@import 'components/home-section';
+@import 'components/events-item';
