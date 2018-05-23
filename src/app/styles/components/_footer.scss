@@ -1,41 +1,5 @@
 footer {
-  $logo-sep: 300px;
-  $logo-aprende: $logo-sep * .6;
-
-  @mixin size($width: 50%, $sm: 250px, $md:300px) {
-    $ratio: .6;
-
-    .logo-sep {
-      padding-left: 15px;
-      width: $width;
-
-      @media (min-width: $screen-sm-min) {
-        order: 1;
-        width: $sm;
-      }
-
-      @media (min-width: $screen-md-min) {
-        width: $md;
-      }
-    }
-
-    .logo-aprende {
-      padding-right: 15px;
-      width: $width * $ratio;
-
-      @media (min-width: $screen-sm-min) {
-        order: 3;
-        width: $sm * $ratio;
-      }
-
-      @media (min-width: $screen-md-min) {
-        width: $md * $ratio;
-      }
-    }
-  }
-
   background-color: $color-cape-cod;
-  border-top: 8px solid $brand-primary;
   color: $color-iron;
   font-size: .9em;
   padding: 28px 0;
@@ -44,18 +8,28 @@ footer {
     margin-bottom: 40px;
     text-align: center;
     width: 100%;
+  }
 
-    @media (min-width: $screen-sm-min) {
-      order: 2;
-      width: auto;
+  .title, .fa, a {
+    color: $color-cyan;
+  }
+
+  .fa-ul {
+    margin-left: 0;
+    list-style-position: outside;
+
+    li {
+      left: 20px;
     }
   }
 
-  .wrapper {
-    @include size();
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  input {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    border-bottom: solid 2px $color-cyan;
+    padding-bottom: 2px;
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
